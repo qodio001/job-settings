@@ -3,15 +3,24 @@ on:
     branches: [main]
 
 jobs:
-  setup:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup process
-        run: echo "Setup completed"
+      - name: Run tests
+        run: echo "Running test process"
 
-  build:
-    needs: setup
+  report-success:
+    needs: test
     runs-on: ubuntu-latest
+    if: success()
     steps:
-      - name: Build process
-        run: echo "Build completed"
+      - name: Success notification
+        run: echo "Test succeeded - sending success notification"
+
+  report-failure:
+    needs: test
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Failure notification
+        run: echo "Test failed - sending failure notification"
