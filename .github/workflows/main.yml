@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run tests
-        run: echo "Running test process"
+        run: |
+          echo "Running test process"
+          exit 1  # ジョブを失敗させる
 
   report-success:
     needs: test
